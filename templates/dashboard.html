@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Aircraft Fleet Health Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body
+data-months='{{ months | tojson }}'
+data-trend='{{ trend | tojson }}'
+>
+
+<h1>Airline Engineering Control Center</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Aircraft</h3>
+<p>{{ aircraft }}</p>
+</div>
+
+<div class="card">
+<h3>Total Defects</h3>
+<p>{{ defects }}</p>
+</div>
+
+<div class="card">
+<h3>AOG Cases</h3>
+<p>{{ aog }}</p>
+</div>
+
+<div class="card">
+<h3>Fleet MTBF</h3>
+<p>{{ mtbf }} hrs</p>
+</div>
+
+<div class="card">
+<h3>Reliability Rating</h3>
+<p>{{ rating }}</p>
+</div>
+
+<div class="card">
+<h3>Fleet Status</h3>
+<p>{{ status }}</p>
+</div>
+
+<div class="card">
+<h3>Failure Risk</h3>
+<p>{{ failure }}</p>
+</div>
+
+</div>
+
+<h2>Reliability Trend</h2>
+
+<div style="width:900px;height:350px;">
+<canvas id="trendChart"></canvas>
+</div>
+
+<h2>Defect Analytics</h2>
+
+<div style="width:700px;height:350px;">
+<canvas id="defectChart"></canvas>
+</div>
+
+<h2>Fleet Defect Log</h2>
+
+<table border="1">
+
+<tr>
+<th>Aircraft</th>
+<th>Component</th>
+<th>Defect</th>
+<th>Severity</th>
+</tr>
+
+{% for d in defect_list %}
+
+<tr>
+<td>{{ d.aircraft }}</td>
+<td>{{ d.component }}</td>
+<td>{{ d.defect }}</td>
+<td>{{ d.severity }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/report">
+<button>Report Aircraft Defect</button>
+</a>
+
+<script>
+
+const months = JSON.parse(document.body.dataset.months);
+const trend = JSON.parse(document.body.dataset.trend);
+
+const trendCanvas = document.getElementById("trendChart");
+
+if (trendCanvas) {
+
+new Chart(trendCanvas, {
+
+type: "line",
+
+data: {
+labels: months,
+datasets: [{
+label: "Fleet MTBF",
+data: trend,
+borderColor: "#4cc9f0",
+backgroundColor: "rgba(76,201,240,0.2)",
+tension: 0.3,
+fill: true
+}]
+},
+
+options: {
+responsive: true,
+maintainAspectRatio: false
+}
+
+});
+
+}
+
+const defectCanvas = document.getElementById("defectChart");
+
+if (defectCanvas) {
+
+new Chart(defectCanvas, {
+
+type: "bar",
+
+data: {
+labels: ["Engine","Hydraulics","Avionics","Landing Gear"],
+datasets: [{
+label: "Reported Defects",
+data: [5,3,4,2],
+backgroundColor: [
+"#4cc9f0",
+"#4361ee",
+"#f72585",
+"#fca311"
+]
+}]
+},
+
+options: {
+responsive: true,
+maintainAspectRatio: false
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+Aircraft,Component,Defect,Severity,FlightHours,FlightCycles,AOG
+B737-800-1,Hydraulic Pump,Leak,High,5200,2100,1
+B737-800-2,Avionics,Signal Error,Medium,4100,1700,0
+B737-800-3,Engine,Vibration,High,7200,3000,1
+B737-800-4,Landing Gear,Sensor Fault,Low,3100,1200,0
+B737-800-5,Hydraulic Pump,Pressure Drop,Medium,4500,1900,0

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Report Aircraft Defect</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+padding:40px;
+}
+
+form{
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+width:400px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:6px;
+border:none;
+}
+
+button{
+background:#38bdf8;
+border:none;
+padding:12px;
+width:100%;
+border-radius:6px;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Report Aircraft Defect</h2>
+
+<form method="POST">
+
+<label>Aircraft</label>
+<input name="aircraft" required>
+
+<label>Component</label>
+<input name="component" required>
+
+<label>Defect</label>
+<input name="defect" required>
+
+<label>Severity</label>
+<select name="severity">
+<option>Minor</option>
+<option>Major</option>
+<option>AOG</option>
+</select>
+
+<button type="submit">Submit Defect</button>
+
+</form>
+
+</body>
+</html>
